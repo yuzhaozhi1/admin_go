@@ -1,5 +1,18 @@
 # github.com/flipped-aurora/gin-vue-admin/server Global Configuration
 
+# mysql connect configuration
+# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://www.github.com/flipped-aurora/gin-vue-admin/server.com/docs/first）
+mysql:
+  path: '101.35.136.100:6379'
+  config: 'charset=utf8mb4&parseTime=True&loc=Local'
+  db-name: 'admin_gin'
+  username: 'admin_gin'
+  password: 'k5kBPRFECDrAGPfN'
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
+
 # jwt configuration
 jwt:
   signing-key: 'qmPlus'
@@ -8,9 +21,10 @@ jwt:
 
 # zap logger configuration
 zap:
-  level: 'info'
+  level: 'debug'
+#  level: 'info'
   format: 'console'
-  prefix: '[github.com/flipped-aurora/gin-vue-admin/server]'
+  prefix: '[admin]'
   director: 'log'
   link-name: 'latest_log'
   show-line: true
@@ -52,18 +66,7 @@ captcha:
   img-width: 240
   img-height: 80
 
-# mysql connect configuration
-# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://www.github.com/flipped-aurora/gin-vue-admin/server.com/docs/first）
-mysql:
-  path: '101.35.136.100:6379'
-  config: 'charset=utf8mb4&parseTime=True&loc=Local'
-  db-name: 'admin_gin'
-  username: 'admin_gin'
-  password: 'k5kBPRFECDrAGPfN'
-  max-idle-conns: 10
-  max-open-conns: 100
-  log-mode: ""
-  log-zap: false
+
 
 # local configuration
 local:
