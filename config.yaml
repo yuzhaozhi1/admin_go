@@ -55,15 +55,15 @@ captcha:
 # mysql connect configuration
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://www.github.com/flipped-aurora/gin-vue-admin/server.com/docs/first）
 mysql:
-  path: ''
-  config: ''
-  db-name: ''
-  username: ''
-  password: ''
+  path: '101.35.136.100:6379'
+  config: 'charset=utf8mb4&parseTime=True&loc=Local'
+  db-name: 'admin_gin'
+  username: 'admin_gin'
+  password: 'k5kBPRFECDrAGPfN'
   max-idle-conns: 10
   max-open-conns: 100
-  log-mode: false
-  log-zap: ""
+  log-mode: ""
+  log-zap: false
 
 # local configuration
 local:

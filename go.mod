@@ -3,38 +3,36 @@ module github.com/yuzhaozhi1/admin_go
 go 1.16
 
 require (
-	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
-	github.com/aliyun/aliyun-oss-go-sdk v2.1.6+incompatible
-	github.com/casbin/casbin/v2 v2.11.0
-	github.com/casbin/gorm-adapter/v3 v3.0.2
-	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/flipped-aurora/gva-plug-email v0.0.0-20210823152517-a061eeea2d16
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-gonic/gin v1.6.3
+	github.com/go-playground/validator/v10 v10.3.0 // indirect
 	github.com/go-redis/redis/v8 v8.11.0
-	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gookit/color v1.3.1
-	github.com/jordan-wright/email v0.0.0-20200824153738-3f5bafa1cd84
-	github.com/lestrrat-go/file-rotatelogs v2.3.0+incompatible
-	github.com/mojocn/base64Captcha v1.3.1
-	github.com/qiniu/api.v7/v7 v7.4.1
+	github.com/json-iterator/go v1.1.10 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/mitchellh/mapstructure v1.2.2 // indirect
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
+	github.com/pelletier/go-toml v1.6.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/robfig/cron/v3 v3.0.1
-	github.com/satori/go.uuid v1.2.0
-	github.com/shirou/gopsutil v3.21.1+incompatible
+	github.com/spf13/afero v1.2.2 // indirect
+	github.com/spf13/cast v1.3.1 // indirect
+	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.0
-	github.com/swaggo/gin-swagger v1.3.0
-	github.com/swaggo/swag v1.7.1
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.19
-	github.com/unrolled/secure v1.0.7
-	github.com/xuri/excelize/v2 v2.4.1
+	github.com/stretchr/testify v1.7.0 // indirect
+	github.com/ugorji/go v1.1.13 // indirect
+	go.uber.org/multierr v1.5.0 // indirect
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20210917221730-978cfadd31cf // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20210921065528-437939a70204 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.6 // indirect
-	gorm.io/driver/mysql v1.0.1
+	google.golang.org/protobuf v1.24.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
+	gopkg.in/ini.v1 v1.55.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 	gorm.io/gorm v1.20.7
 )

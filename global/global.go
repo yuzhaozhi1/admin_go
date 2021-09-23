@@ -3,6 +3,7 @@ package global
 import (
 	"github.com/go-redis/redis/v8"
 	"github.com/spf13/viper"
+	"github.com/yuzhaozhi1/admin_go/config"
 	"github.com/yuzhaozhi1/admin_go/utils/timer"
 	"go.uber.org/zap"
 	"golang.org/x/sync/singleflight"
@@ -17,7 +18,7 @@ var (
 	GLOBAL_REDIS *redis.Client
 
 	// GLOBAL_CONFIG 全局配置映射
-	GLOBAL_CONFIG
+	GLOBAL_CONFIG config.Server
 
 	// GLOBAL_VIPER 配置加载
 	GLOBAL_VIPER *viper.Viper
