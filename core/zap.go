@@ -20,7 +20,8 @@ func Zap() (logger *zap.Logger) {
 		// 如果有错误，则类型为*PathError
 		_ = os.Mkdir(global.GLOBAL_CONFIG.Zap.Director, os.ModePerm)
 	}
-	switch global.GLOBAL_CONFIG.Zap.Level { // 初始化配置文件的level
+	// 从配置文件中获取日志的level 初始化配置文件的level
+	switch global.GLOBAL_CONFIG.Zap.Level {
 	case "debug":
 		level = zap.DebugLevel
 	case "info":
@@ -67,6 +68,7 @@ func getEncoderConfig() (config zapcore.EncoderConfig) {
 		EncodeCaller:   zapcore.FullCallerEncoder,      // 全路径编码器
 	}
 
+	// 获取日志的编码
 	switch {
 	case global.GLOBAL_CONFIG.Zap.EncodeLevel == "LowercaseLevelEncoder": // 小写编码器(默认)
 		config.EncodeLevel = zapcore.LowercaseLevelEncoder
