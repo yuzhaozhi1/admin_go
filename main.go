@@ -7,5 +7,6 @@ import (
 func main() {
 	// 使用 viper 来加载配置信息
 	global.GLOBAL_VIPER = core.Viper()
-
+	// 初始化zap 日志库
+	global.GLOBAL_LOG = core.Zap()
 }

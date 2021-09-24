@@ -23,14 +23,17 @@ jwt:
 zap:
   level: 'debug'
 #  level: 'info'
-  format: 'console'
-  prefix: '[admin]'
-  director: 'log'
-  link-name: 'latest_log'
-  show-line: true
+#  format: 'console'
+  format: 'json'   # 日志的格式
+  prefix: '[admin]'  # 日志的前缀
+  director: 'log'  # 日志文件夹
+  link-name: 'latest_log'   #生成软链，指向最新日志文件
+  show-line: true   # 调用者的文件名和行号注释每条消息
+  # "LowercaseLevelEncoder": 小写编码器(默认)  "LowercaseColorLevelEncoder": 小写编码器带颜色
+  # "CapitalLevelEncoder":  大写编码器        "CapitalColorLevelEncoder":   大写编码器带颜色
   encode-level: 'LowercaseColorLevelEncoder'
   stacktrace-key: 'stacktrace'
-  log-in-console: true
+  log-in-console: true   # 是否输出日志到终端
 
 # redis configuration
 redis:
