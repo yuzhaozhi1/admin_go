@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"fmt"
 	"github.com/yuzhaozhi1/admin_go/global"
 	"github.com/yuzhaozhi1/admin_go/initialize/internal"
 	"go.uber.org/zap"
@@ -45,6 +46,7 @@ func GormMysql() *gorm.DB {
 
 		// SetMaxOpenConns 设置打开数据库连接的最大数量。
 		sqlDB.SetMaxOpenConns(m.MaxOpenConns)
+		fmt.Println("数据库初始化成功")
 		return db
 	}
 }
@@ -52,7 +54,7 @@ func GormMysql() *gorm.DB {
 // gormConfig 根据配置决定是否开启日志
 func gormConfig() *gorm.Config {
 	config := &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true} // 迁移时禁用外键约束
-
+	// 定义 gorm 的配置 数据
 	switch global.GLOBAL_CONFIG.Mysql.LogMode {
 	case "silent", "Silent":
 		config.Logger = internal.Default.LogMode(logger.Silent)

@@ -4,7 +4,7 @@
 # 未初始化之前请勿手动修改数据库信息！！！
 # 如果一定要手动初始化请看（https://www.github.com/flipped-aurora/gin-vue-admin/server.com/docs/first）
 mysql:
-  path: '101.35.136.100:6379'
+  path: '101.35.136.100:3306'
   config: 'charset=utf8mb4&parseTime=True&loc=Local'
   db-name: 'admin_gin'
   username: 'admin_gin'
@@ -12,8 +12,8 @@ mysql:
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""
-#  log-zap: false
-  log-zap: true   # 是否使用 zap 来写日志
+  log-zap: false
+#  log-zap: true   # 是否使用 zap 来写日志
 
 # jwt configuration
 jwt:

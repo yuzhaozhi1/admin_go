@@ -50,6 +50,7 @@ func Zap() (logger *zap.Logger) {
 		// AddCaller将Logger配置为使用ZAP调用者的文件名和行号注释每条消息
 		logger = logger.WithOptions(zap.AddCaller())
 	}
+	fmt.Println("初始化日志配置成功")
 	return logger
 }
 
