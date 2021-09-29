@@ -1,7 +1,8 @@
 # github.com/flipped-aurora/gin-vue-admin/server Global Configuration
 
 # mysql connect configuration
-# 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://www.github.com/flipped-aurora/gin-vue-admin/server.com/docs/first）
+# 未初始化之前请勿手动修改数据库信息！！！
+# 如果一定要手动初始化请看（https://www.github.com/flipped-aurora/gin-vue-admin/server.com/docs/first）
 mysql:
   path: '101.35.136.100:6379'
   config: 'charset=utf8mb4&parseTime=True&loc=Local'
@@ -11,7 +12,8 @@ mysql:
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: ""
-  log-zap: false
+#  log-zap: false
+  log-zap: true   # 是否使用 zap 来写日志
 
 # jwt configuration
 jwt:
@@ -60,12 +62,12 @@ system:
   env: 'public'  # Change to "develop" to skip authentication for development mode
   addr: 8888
   db-type: 'mysql'
-  oss-type: 'local'    # 控制oss选择走本期还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
+  oss-type: 'local'    # 控制oss选择走本地还是 七牛等其他仓 自行增加其他oss仓可以在 server/utils/upload/upload.go 中 NewOss函数配置
   use-multipoint: false
 
 # captcha configuration
 captcha:
-  key-long: 6
+  key-long: 4   # 验证码的长度
   img-width: 240
   img-height: 80
 

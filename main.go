@@ -9,4 +9,6 @@ func main() {
 	global.GLOBAL_VIPER = core.Viper()
 	// 初始化zap 日志库
 	global.GLOBAL_LOG = core.Zap()
+	global.GLOBAL_DB = initialize.Gorm()
+
 }
