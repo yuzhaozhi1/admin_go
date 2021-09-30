@@ -21,4 +21,7 @@ func main() {
 		defer db.Close()
 	}
 
+	// 系统启动, gin 启动
+	core.RunServer()
+
 }

@@ -1,7 +1,7 @@
 package global
 
 import (
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis"
 	"github.com/spf13/viper"
 	"github.com/yuzhaozhi1/admin_go/config"
 	"github.com/yuzhaozhi1/admin_go/utils/timer"

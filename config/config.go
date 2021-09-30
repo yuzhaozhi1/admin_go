@@ -2,6 +2,8 @@ package config
 
 // Server 项目总的配置类
 type Server struct {
+
+	Redis Redis `mapstructure:"redis" json:"redis" yaml:"redis"`
 	// 系统配置
 	System System `mapstructure:"system" json:"system" yaml:"system"`
 	// 日志
