@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/yuzhaozhi1/admin_go/global"
 	"github.com/yuzhaozhi1/admin_go/initialize/internal"
+	"github.com/yuzhaozhi1/admin_go/model"
 	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -68,4 +69,16 @@ func gormConfig() *gorm.Config {
 		config.Logger = internal.Default.LogMode(logger.Info)
 	}
 	return config
+}
+
+// MysqlTables 注册数据库表
+func MysqlTables(db *gorm.DB) {
+	err := db.AutoMigrate(
+		model.SysUser{},
+	)
+	if err != nil {
+		global.GLOBAL_LOG.Error("register table failed", zap.Any("err", err))
+		os.Exit(0)
+	}
+	global.GLOBAL_LOG.Info("create table success")
 }
