@@ -27,6 +27,14 @@ func RunServer()  {
 		// 连接到redis
 		initialize.Redis()
 	}
+	// 初始化总路由
+	Router := initialize.Routers()
+	// 静态文件代理
+	Router.Static("/form-generator", "./resource/page")
+
+
+
+
 
 
 }

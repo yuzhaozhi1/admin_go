@@ -5,8 +5,7 @@ go 1.16
 require (
 	github.com/fsnotify/fsnotify v1.4.9
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
-	github.com/gin-gonic/gin v1.6.3
-	github.com/go-playground/validator/v10 v10.3.0 // indirect
+	github.com/gin-gonic/gin v1.7.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/json-iterator/go v1.1.10 // indirect
@@ -27,7 +26,9 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.0
 	github.com/stretchr/testify v1.7.0 // indirect
+	github.com/swaggo/gin-swagger v1.3.2
 	github.com/ugorji/go v1.1.13 // indirect
+	github.com/unrolled/secure v1.0.9
 	go.uber.org/multierr v1.5.0 // indirect
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20210917221730-978cfadd31cf // indirect

@@ -74,7 +74,7 @@ captcha:
 
 
 
-# local configuration
+# local configuration, 上传的文件目录
 local:
   path: 'uploads/file'
 

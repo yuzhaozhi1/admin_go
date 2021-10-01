@@ -15,4 +15,8 @@ type Server struct {
 
 	// Timer 定时器
 	Timer
+
+	// 文件储存的几个类型 本地, 七牛
+	Local Local `mapstructure:"local" json:"local" yaml:"local"`
+
 }
