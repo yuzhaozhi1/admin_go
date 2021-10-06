@@ -28,5 +28,28 @@ func Routers() *gin.Engine {
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.GLOBAL_LOG.Info("register swagger handler")
 
+
+	// 公共的路由:不需要鉴权
+	PublicGroup := Router.Group("")
+	{
+		router
+	}
+
+
+	// 需要鉴权的路由
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	return Router
 }
