@@ -6,6 +6,7 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"github.com/yuzhaozhi1/admin_go/global"
 	"github.com/yuzhaozhi1/admin_go/middleware"
+	"github.com/yuzhaozhi1/admin_go/router"
 	"net/http"
 )
 
@@ -32,7 +33,8 @@ func Routers() *gin.Engine {
 	// 公共的路由:不需要鉴权
 	PublicGroup := Router.Group("")
 	{
-		router
+		router.InitBaseRouter(PublicGroup)   // 注册基础路由,不用鉴权, 用户的登录和验证码的获取
+
 	}
 
 
