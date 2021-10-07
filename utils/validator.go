@@ -3,6 +3,7 @@ package utils
 import (
 	"errors"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -29,10 +30,10 @@ func NotEmpty() string {
 	return "notEmpty"
 }
 
+// Verify 前端传过来的参数校验
 func Verify(st interface{}, realMap Rules) (err error) {
 	// realMap LoginVerify = Rules{
 	// "CaptchaId": {NotEmpty()}, "Captcha":{NotEmpty()}, "Username":{NotEmpty()}, "Password":{NotEmpty()}}
-
 	// 比较map
 	compareMpa := map[string]bool{
 		"lt": true, // 小于
@@ -64,14 +65,13 @@ func Verify(st interface{}, realMap Rules) (err error) {
 					}
 				case compareMpa[strings.Split(ToBecheckField, "=")[0]]:
 					if !compareVerify(val, ToBecheckField) {
-
+						return errors.New(tagVal.Name + "长度或者值不在合法范围内!")
 					}
-
 				}
 			}
 		}
-
 	}
+	return nil
 }
 
 // isBlank 非空校验
@@ -83,7 +83,7 @@ func isBlank(value reflect.Value) bool {
 		return !value.Bool()
 	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 		return value.Int() == 0
-	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
 		return value.Uint() == 0
 	case reflect.Float32, reflect.Float64:
 		return value.Float() == 0
@@ -97,7 +97,90 @@ func isBlank(value reflect.Value) bool {
 // compareVerify 长度和数字的校验方法, 根据类型自动校验
 func compareVerify(value reflect.Value, VerifyStr string) bool {
 	switch value.Kind() {
-	
+	case reflect.String, reflect.Slice, reflect.Array, reflect.Map: // 增加了 map的长度对比
+		return compare(value.Len(), VerifyStr)
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return compare(value.Len(), VerifyStr)
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return compare(value.Len(), VerifyStr)
+	case reflect.Float32, reflect.Float64:
+		return compare(value.Len(), VerifyStr)
+	default:
+		return false
 	}
+}
 
+// compare 比较函数
+func compare(value interface{}, VeriFyStr string) bool {
+	VeriFyStrArr := strings.Split(VeriFyStr, "=")
+	val := reflect.ValueOf(value)
+
+	switch val.Kind() {
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		VInt, VErr := strconv.ParseInt(VeriFyStrArr[1], 10, 64)
+		if VErr != nil {
+			return false
+		}
+
+		switch {
+		case VeriFyStrArr[0] == "lt":
+			return val.Int() < VInt
+		case VeriFyStrArr[0] == "le":
+			return val.Int() <= VInt
+		case VeriFyStrArr[0] == "eq":
+			return val.Int() == VInt
+		case VeriFyStrArr[0] == "ne":
+			return val.Int() != VInt
+		case VeriFyStrArr[0] == "ge":
+			return val.Int() >= VInt
+		case VeriFyStrArr[0] == "gt":
+			return val.Int() > VInt
+		default:
+			return false
+		}
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		VInt, VErr := strconv.Atoi(VeriFyStrArr[1])
+		if VErr != nil {
+			return false
+		}
+		switch {
+		case VeriFyStrArr[0] == "lt":
+			return val.Uint() < uint64(VInt)
+		case VeriFyStrArr[0] == "le":
+			return val.Uint() <= uint64(VInt)
+		case VeriFyStrArr[0] == "eq":
+			return val.Uint() == uint64(VInt)
+		case VeriFyStrArr[0] == "ne":
+			return val.Uint() != uint64(VInt)
+		case VeriFyStrArr[0] == "ge":
+			return val.Uint() >= uint64(VInt)
+		case VeriFyStrArr[0] == "gt":
+			return val.Uint() > uint64(VInt)
+		default:
+			return false
+		}
+	case reflect.Float32, reflect.Float64:
+		VFloat, VErr := strconv.ParseFloat(VeriFyStrArr[1], 64)
+		if VErr != nil {
+			return false
+		}
+		switch {
+		case VeriFyStrArr[0] == "lt":
+			return val.Float() < VFloat
+		case VeriFyStrArr[0] == "le":
+			return val.Float() <= VFloat
+		case VeriFyStrArr[0] == "eq":
+			return val.Float() == VFloat
+		case VeriFyStrArr[0] == "ne":
+			return val.Float() != VFloat
+		case VeriFyStrArr[0] == "ge":
+			return val.Float() >= VFloat
+		case VeriFyStrArr[0] == "gt":
+			return val.Float() > VFloat
+		default:
+			return false
+		}
+	default:
+		return false
+	}
 }
