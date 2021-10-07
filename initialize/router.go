@@ -34,11 +34,11 @@ func Routers() *gin.Engine {
 	PublicGroup := Router.Group("")
 	{
 		router.InitBaseRouter(PublicGroup)   // 注册基础路由,不用鉴权, 用户的登录和验证码的获取
-
 	}
 
 
 	// 需要鉴权的路由
+	// todo 待补充
 
 
 
@@ -52,6 +52,6 @@ func Routers() *gin.Engine {
 
 
 
-
+	global.GLOBAL_LOG.Info("router register success!")
 	return Router
 }

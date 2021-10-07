@@ -66,11 +66,11 @@ system:
 #  use-multipoint: false   # 是否开启单点登录
   use-multipoint: true
 
-# captcha configuration
+# captcha configuration 验证码相关的配置
 captcha:
   key-long: 4   # 验证码的长度
-  img-width: 240
-  img-height: 80
+  img-width: 240   # 图片的宽度
+  img-height: 80    # 图片的长度
 
 
 

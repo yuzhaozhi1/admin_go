@@ -3,6 +3,9 @@ package config
 // Server 项目总的配置类
 type Server struct {
 
+	// Captcha  // 验证码
+	Captcha Captcha `mapstructure:"captcha" json:"captcha" yaml:"captcha"`
+
 	Redis Redis `mapstructure:"redis" json:"redis" yaml:"redis"`
 	// 系统配置
 	System System `mapstructure:"system" json:"system" yaml:"system"`

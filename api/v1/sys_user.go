@@ -22,9 +22,8 @@ func Login(c *gin.Context){
 		return
 	}
 
-	utils.Verify(l, utils.LoginVerify)
-
-
-
-
+	if err := utils.Verify(l, utils.LoginVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 }
