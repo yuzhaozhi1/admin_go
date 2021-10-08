@@ -13,7 +13,7 @@ import (
 	 {
 		 BaseRouter.GET("/captcha", v1.Captcha)  // 生成验证码
 		 BaseRouter.POST("/login", v1.Login)  // 用户登录
-		 BaseRouter.POST("/register", v1.Register)
+		 BaseRouter.POST("/register", v1.Register) // 用户注册
 	 }
 	 return BaseRouter
  }
