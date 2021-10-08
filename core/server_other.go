@@ -9,7 +9,8 @@ import (
 func initServer(address string, router *gin.Engine) server {
 	s := endless.NewServer(address, router)  // 用于优雅的重启http 服务
 	s.ReadHeaderTimeout = 10 * time.Millisecond   // 允许读取的最大时间
-	s.WriteTimeout = 10 * time.Millisecond  // 允许写入的最大时间
+	// s.WriteTimeout = 10 * time.Millisecond  // 允许写入的最大时间
+	s.WriteTimeout = 180 * time.Second
 	s.MaxHeaderBytes = 1 << 20   // 请求头的最大字节数
 	return s
 }

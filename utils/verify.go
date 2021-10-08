@@ -4,5 +4,6 @@ package utils
 
 var (
 	// LoginVerify 登录参数验证
-	LoginVerify = Rules{"CaptchaId": {NotEmpty()}, "Captcha":{NotEmpty()}, "Username":{NotEmpty()}, "Password":{NotEmpty()}}
+	LoginVerify = Rules{"CaptchaId": {NotEmpty()}, "Captcha": {NotEmpty()}, "Username": {NotEmpty()}, "Password": {NotEmpty()}}
+	Register    = Rules{"Username": {NotEmpty()}, "Password": {NotEmpty()}, "AuthorityId": {NotEmpty()}}
 )

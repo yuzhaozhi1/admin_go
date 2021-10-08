@@ -15,6 +15,7 @@ func main() {
 	initialize.Timer()
 
 	if global.GLOBAL_DB != nil{
+		// 注册表
 		initialize.MysqlTables(global.GLOBAL_DB)  // 初始化表
 		// 程序结束前关闭数据库链接
 		db,_ := global.GLOBAL_DB.DB()

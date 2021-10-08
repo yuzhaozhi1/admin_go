@@ -35,6 +35,7 @@ func RunServer() {
 	Router.Static("/form-generator", "./resource/page")
 
 	address := ":" + global.GLOBAL_CONFIG.System.Addr
+
 	s := initServer(address, Router)
 
 	time.Sleep(10 * time.Millisecond)

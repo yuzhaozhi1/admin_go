@@ -1,12 +1,38 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/yuzhaozhi1/admin_go/global"
+	"github.com/yuzhaozhi1/admin_go/model"
 	"github.com/yuzhaozhi1/admin_go/model/request"
 	"github.com/yuzhaozhi1/admin_go/model/response"
+	"github.com/yuzhaozhi1/admin_go/service"
 	"github.com/yuzhaozhi1/admin_go/utils"
+	"go.uber.org/zap"
 )
 
+// Register 用户注册账号
+// data 参数 "用户名 昵称, 密码, 角色ID"
+func Register(c *gin.Context){
+	var r request.Register
+	_ = c.ShouldBindJSON(&r)
+	err := utils.Verify(r, utils.Register)
+	if err != nil {
+		response.FailWithMessage(err.Error(),c)
+		return
+	}
+	user := model.SysUser{
+		Username: r.Username,
+		NickName: r.NickName,
+		Password: r.Password,
+		HeaderImg: r.HeaderImg,
+	}
+	fmt.Println(user)
+
+
+
+}
 
 
 // Login 用户登录
@@ -25,5 +51,20 @@ func Login(c *gin.Context){
 	if err := utils.Verify(l, utils.LoginVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
+	}
+
+	// 校验用户传入的验证码是否正确
+	if store.Verify(l.CaptchaId, l.Captcha, true) {
+		// 校验用户名和密码
+		u := model.SysUser{Username: l.Username, Password: l.Password}
+		if err, user := service.Login(&u); err != nil{
+			global.GLOBAL_LOG.Error("用户登录失败! 用户名不存在或者密码错误!", zap.Any("err", err))
+			response.FailWithMessage("用户登录失败! 用户名不存在或者密码错误!", c)
+			return
+		}else {
+			fmt.Println(user)
+		}
+	}else {
+		response.FailWithMessage("验证码不正确!", c)
 	}
 }

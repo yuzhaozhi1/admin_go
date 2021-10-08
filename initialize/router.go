@@ -1,6 +1,7 @@
 package initialize
 
 import (
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
@@ -15,6 +16,8 @@ import (
 // Routers gin 初始化路由
 func Routers() *gin.Engine {
 	var Router = gin.Default()
+	pprof.Register(Router)
+
 	// 静态的文件代理, 可以用 nginx 来代理, 为用户头像和文件提供静态地址
 	Router.StaticFS(global.GLOBAL_CONFIG.Local.Path, http.Dir(global.GLOBAL_CONFIG.Local.Path))
 	// 使用 https
@@ -29,28 +32,14 @@ func Routers() *gin.Engine {
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	global.GLOBAL_LOG.Info("register swagger handler")
 
-
 	// 公共的路由:不需要鉴权
 	PublicGroup := Router.Group("")
 	{
-		router.InitBaseRouter(PublicGroup)   // 注册基础路由,不用鉴权, 用户的登录和验证码的获取
+		router.InitBaseRouter(PublicGroup) // 注册基础路由,不用鉴权, 用户的登录和验证码的获取
 	}
-
 
 	// 需要鉴权的路由
 	// todo 待补充
-
-
-
-
-
-
-
-
-
-
-
-
 
 	global.GLOBAL_LOG.Info("router register success!")
 	return Router
