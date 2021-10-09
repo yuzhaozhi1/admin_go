@@ -34,6 +34,6 @@ func Register(registerUser model.SysUser)(err error, userObj model.SysUser) {
 	registerUser.UUID = uuid.NewV4()
 
 	// 保存到数据库
-	err = global.GLOBAL_DB.Create(&registerUser).Preload("SysAuthority").Error
+	err = global.GLOBAL_DB.Create(&registerUser).Error
 	return err, registerUser
 }

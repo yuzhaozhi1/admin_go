@@ -73,3 +73,8 @@ func Login(c *gin.Context) {
 		response.FailWithMessage("验证码不正确!", c)
 	}
 }
+
+// ChangePassword 用户修改密码
+func ChangePassword(c *gin.Context)  {
+
+}

@@ -35,11 +35,15 @@ func Routers() *gin.Engine {
 	// 公共的路由:不需要鉴权
 	PublicGroup := Router.Group("")
 	{
-		router.InitBaseRouter(PublicGroup) // 注册基础路由,不用鉴权, 用户的登录和验证码的获取
+		router.InitBaseRouter(PublicGroup) // 注册基础路由,不用鉴权, 用户的登录和验证码的获取,用户的注册
 	}
 
 	// 需要鉴权的路由
-	// todo 待补充
+	PrivateGroup := Router.Group("")
+	PrivateGroup.Use(middleware.JWTAuth())
+	{
+		router.InitUserRouter(PrivateGroup) // 注册用户相关操作的路由
+	}
 
 	global.GLOBAL_LOG.Info("router register success!")
 	return Router

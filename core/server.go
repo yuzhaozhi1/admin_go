@@ -42,6 +42,6 @@ func RunServer() {
 	global.GLOBAL_LOG.Info("server run success new", zap.Any("address:", address))
 
 	fmt.Println("admin 启动成功")
-	//
+	// 开启监听
 	global.GLOBAL_LOG.Error(s.ListenAndServe().Error())
 }
