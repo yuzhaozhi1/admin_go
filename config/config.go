@@ -2,7 +2,8 @@ package config
 
 // Server 项目总的配置类
 type Server struct {
-
+	// jwt
+	Jwt JWTConfig `mapstruct:"jwt" json:"jwt" yaml:"jwt"`
 	// Captcha  // 验证码
 	Captcha Captcha `mapstructure:"captcha" json:"captcha" yaml:"captcha"`
 

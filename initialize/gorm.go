@@ -74,8 +74,9 @@ func gormConfig() *gorm.Config {
 // MysqlTables 注册数据库表
 func MysqlTables(db *gorm.DB) {
 	err := db.AutoMigrate(
-		model.SysUser{},
-		model.SysAuthority{},
+		model.SysUser{},      // 用户
+		model.SysAuthority{}, // 权限
+		model.JwtBlackList{}, // jwt黑名单
 	)
 	if err != nil {
 		global.GLOBAL_LOG.Error("register table failed", zap.Any("err", err))

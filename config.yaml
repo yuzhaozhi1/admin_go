@@ -17,9 +17,9 @@ mysql:
 
 # jwt configuration
 jwt:
-  signing-key: 'qmPlus'
-  expires-time: 604800
-  buffer-time: 86400
+  signing-key: 'acsdvfasv131fscad9.[p[ppm'   # 加密的key
+  expires-time: 604800   # 过期时间为7天
+  buffer-time: 86400   # 缓层的时间为一天
 
 # zap logger configuration
 zap:
