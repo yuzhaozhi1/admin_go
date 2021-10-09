@@ -24,3 +24,4 @@
 *.sw?
 
 /log
+config.yaml

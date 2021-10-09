@@ -21,6 +21,7 @@ func JWTAuth() gin.HandlerFunc {
 			response.FailWithDetailed(gin.H{"reload": true}, "请求不合法! 未携带token", c)
 			return
 		}
+
 		// 校验token是否在黑名单中,
 		if service.IsInBlackList(token) {
 			global.GLOBAL_LOG.Error("黑名单用户访问了" + c.Request.Host)
