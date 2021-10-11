@@ -23,9 +23,9 @@ func IsInBlackList(token string) bool {
 }
 
 // GetJWTTokenByRedis 从redis 中获取用户的token
-func GetJWTTokenByRedis(userName string) (redisJwt string, err error) {
-	redisJwt, err = global.GLOBAL_REDIS.Get(userName).Result()
-	return redisJwt, err
+func GetJWTTokenByRedis(userName string) (redisJWT string, err error) {
+	redisJWT, err = global.GLOBAL_REDIS.Get(userName).Result()
+	return redisJWT, err
 }
 
 // SaveJWTTokenToRedis 保存用户的jwt token 到redis中

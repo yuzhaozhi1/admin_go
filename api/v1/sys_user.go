@@ -1,9 +1,9 @@
 package v1
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
+	"github.com/go-redis/redis"
 	"github.com/yuzhaozhi1/admin_go/global"
 	"github.com/yuzhaozhi1/admin_go/middleware"
 	"github.com/yuzhaozhi1/admin_go/model"
@@ -71,7 +71,7 @@ func Login(c *gin.Context) {
 			return
 		} else {
 			// 生成jwt token
-			fmt.Println(user)
+			tokenNext(c, *user)
 		}
 	} else {
 		response.FailWithMessage("验证码不正确!", c)
@@ -80,19 +80,19 @@ func Login(c *gin.Context) {
 
 // tokenNext 生成token, 用户登录成功后签发token
 func tokenNext(c *gin.Context, user model.SysUser) {
-	j := &middleware.JWT{SigningKey: []byte(global.GLOBAL_CONFIG.Jwt.SigningKey)}  // 唯一签名
+	j := &middleware.JWT{SigningKey: []byte(global.GLOBAL_CONFIG.Jwt.SigningKey)} // 唯一签名
 	claims := request.CustomClaims{
-		UUID: user.UUID,
-		ID: user.ID,
-		NickName: user.NickName,
-		Username: user.Username,
+		UUID:        user.UUID,
+		ID:          user.ID,
+		NickName:    user.NickName,
+		Username:    user.Username,
 		AuthorityId: user.AuthorityId,
 		// 缓存时间一天, 缓冲时间内会获得新的token 刷新令牌, 此时一个用户会存在两个有效令牌, 但是前端 只会保留一个,另一个会丢弃
 		BufferTime: global.GLOBAL_CONFIG.Jwt.BufferTime,
 		StandardClaims: jwt.StandardClaims{
-			NotBefore: time.Now().Unix() - 1000,  // 签名生效的时间
-			ExpiresAt: time.Now().Unix() + global.GLOBAL_CONFIG.Jwt.ExpiresTime,  // 过期时间
-			Issuer: "yuZz",
+			NotBefore: time.Now().Unix() - 1000,                                 // 签名生效的时间
+			ExpiresAt: time.Now().Unix() + global.GLOBAL_CONFIG.Jwt.ExpiresTime, // 过期时间
+			Issuer:    "yuZz",
 		},
 	}
 	// 生成token
@@ -105,14 +105,45 @@ func tokenNext(c *gin.Context, user model.SysUser) {
 	// 是否开启了单点登录
 	if !global.GLOBAL_CONFIG.System.UseMultipoint {
 		response.OkWithDetailed(response.LoginResponse{
-			User: user,
-			Token: token,
+			User:      user,
+			Token:     token,
 			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
 		}, "登录成功", c)
 		return
 	}
-	if err, jwtStr := service.
-
+	if jwtstr, err := service.GetJWTTokenByRedis(user.Username); err == redis.Nil {
+		// 如果redis 中没有保存该 token就 将token 保存到redis中
+		if err := service.SaveJWTTokenToRedis(token, user.Username); err != nil {
+			global.GLOBAL_LOG.Error("设置登录状态失败!", zap.Any("err", err))
+			response.FailWithMessage("设置登录状态失败!", c)
+			return
+		}
+		response.OkWithDetailed(response.LoginResponse{
+			User:      user,
+			Token:     token,
+			ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
+		}, "登录成功", c)
+	} else if err != nil { // 用户已经保存在redis中
+		global.GLOBAL_LOG.Error("设置登录状态失败!", zap.Any("err", err))
+		response.FailWithMessage("设置登录状态失败!", c)
+		return
+	} else {
+		var blackJwt model.JwtBlackList
+		blackJwt.Jwt = jwtstr
+		if err := service.JoinInBlackList(blackJwt); err != nil {
+			response.FailWithMessage("jwt 作废失败", c)
+			return
+		}
+		if err := service.SaveJWTTokenToRedis(token, user.Username); err != nil {
+			response.FailWithMessage("设置登录状态失败", c)
+			return
+		}
+		response.OkWithDetailed(response.LoginResponse{
+			User:      user,
+			Token:     token,
+			ExpiresAt: claims.StandardClaims.ExpiresAt,
+		}, "登录成功", c)
+	}
 
 }
 

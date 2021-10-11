@@ -10,7 +10,7 @@ require (
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
 	github.com/gin-contrib/pprof v1.3.0
 	github.com/gin-gonic/gin v1.7.0
-	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/kr/text v0.2.0 // indirect
