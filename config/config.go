@@ -2,8 +2,10 @@ package config
 
 // Server 项目总的配置类
 type Server struct {
+	// Casbin rabc 配置文件
+	Casbin Casbin `mapstructure:"casbin" yaml:"casbin" json:"casbin"`
 	// jwt
-	Jwt JWTConfig `mapstruct:"jwt" json:"jwt" yaml:"jwt"`
+	Jwt JWTConfig `mapstructure:"jwt" json:"jwt" yaml:"jwt"`
 	// Captcha  // 验证码
 	Captcha Captcha `mapstructure:"captcha" json:"captcha" yaml:"captcha"`
 

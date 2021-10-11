@@ -28,9 +28,8 @@ func JWTAuth() gin.HandlerFunc {
 			response.FailWithDetailed(gin.H{"reload": true}, "您的账户异地登录或令牌失效", c)
 			c.Abort() // 防止后面的函数调用
 		}
-
+		c.Next()
 	}
-
 }
 
 type JWT struct {
